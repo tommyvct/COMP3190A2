@@ -55,7 +55,7 @@ public class GameBoard{
 
 	// A string representation of the board for testing. 
 	public String toString(){
-		String stMap = "";
+		String stMap = "--------------------\n";
 		for(int i = 0 ; i < map.length; i++){
 			stMap += "\n";
 			for(int j =0; j < map[i].length; j++){
@@ -89,12 +89,10 @@ public class GameBoard{
 			}
 		}
 		// Print out Agents & Things
-		for(int i =0 ; i < agents.size(); i++){
-			stMap += "\n" + agents.toString();
-		}
-		for(int i =0 ; i < things.size(); i++){
-			stMap += "\n" + things.toString();
-		}
+		stMap += "\n" + agents.toString();
+		stMap += "\n" + things.toString();
+
+		stMap += "\n--------------------\n";
 
 		return stMap;
 	}
@@ -350,6 +348,7 @@ public class GameBoard{
 	}
 
 	// Creates a deep copy of the GameBoard. 
+	// Edit - Fixed cloned Agent Tile references. Oct 18th DF. 
 	public GameBoard deepCopy(){
 
 		GameBoard newBoard = new GameBoard();
@@ -361,21 +360,19 @@ public class GameBoard{
 		for(int r =0; r < map.length; r++){
 			for(int c = 0; c < map[r].length; c++){
 				newMap[r][c] = map[r][c].deepCopy();
+				// If the cloned tile has an agent, add it to the list
+				if(newMap[r][c].hasAgent()){
+					newBoard.agents.add(newMap[r][c].getAgent());
+				}
+				// same with Thing. Note the order of both may be different
+				if(newMap[r][c].hasThing()){
+					newBoard.things.add(newMap[r][c].getThing());
+				}
 			}
 		}
 
 		// assign copy of map
 		newBoard.map = newMap;
-
-		// Deep copy of agents
-		for(int i = 0 ; i < this.agents.size(); i++){
-			newBoard.agents.add(0,this.agents.get(0).deepCopy());
-		}
-
-		// Deep copy of things
-		for(int i = 0 ; i < this.things.size(); i++){
-			newBoard.things.add(0, this.things.get(0).deepCopy());
-		}
 
 		// Reset neighbors
 		newBoard.setNeighbors();

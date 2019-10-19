@@ -24,13 +24,13 @@ public class Agent{
 	// --- Copying ---
 	// Copy constructor for cloning purposes. 
 	protected Agent(Agent other){
-		Agent a = new Agent(other.name);
-		a.currentTile = other.currentTile; // reference needs to be updated somewhere else
+		this.name = other.name;
+		this.currentTile = other.currentTile;
 	}
 
 	//Create a deep copy of the Agent
 	public Agent deepCopy(){
-		return new Agent();
+		return new Agent(this);
 	}
 
 	// --- Assignment to Tile ---

@@ -86,7 +86,12 @@ public class TestClass{
 
 		// Clone the board
 		GameBoard board = new GameBoard();
+		board.initializeBoard(3,5);
+
 		board.addAgent(new Player("Dylan"),0,0);
+		board.addAgent(new AIAgent("AI"),2,4);
+		board.addThing(new Goal("Goal"), 1,1);
+		board.addThing(new Item("Item"), 2,2);
 
 		GameBoard board2 = board.deepCopy();
 
@@ -94,6 +99,20 @@ public class TestClass{
 			System.out.println("! it is the same player!");
 		}
 
+		// Testing the board -> player ->Tiles
+		System.out.println("Player Tiles: " + board.getPlayer().getTile() + "\n" +  board2.getPlayer().getTile());
+
+		if(board.getPlayer().getTile() == board2.getPlayer().getTile()){
+			System.out.println("! it is the same player!");
+		}
+
+		// This just seems silly
+		System.out.println("board.getPlayer().getTile().getAgent(): " + board.getPlayer().getTile().getAgent() + "\n" + board2.getPlayer().getTile().getAgent());
+
+		if(board.getPlayer().getTile().getAgent() == board2.getPlayer().getTile().getAgent()){
+			System.out.println("! it is the same player on the tile referenced by the player on the board!");
+		} 
+		System.out.println(" --- Board Printouts --- ");
 		System.out.println(board.toString());
 		System.out.println(board2.toString());
 

@@ -36,6 +36,32 @@ public class Tile{
 		neighbors = new TileList();
 	}
 
+	// added Thing clone
+	public Tile(Tile other){
+		this.isAlive = other.isAlive;
+		this.neighbors = new TileList();
+
+		// Assign the Agent and the Tile to each other. 
+		if( other.currentAgent != null){
+			Agent cloneAgent = other.currentAgent.deepCopy();
+			this.currentAgent = cloneAgent;
+			cloneAgent.setTile(this);
+		}
+
+		// Adding the Thing to the current Tile. 
+		if(other.currentThing != null){
+			this.currentThing = other.currentThing.deepCopy();
+		}
+
+	}
+
+	// Note the neighbors are not configured yet
+	// Also the agent and thing need to be added to the board lists. 
+	public Tile deepCopy(){
+		// Cloning
+		return new Tile(this);
+	}
+
 	// State Updating 
 	// ----------------------------------
 	// --- Basic state accessors ---
@@ -51,7 +77,6 @@ public class Tile{
 	public void updateToNext(){
 		isAlive = nextState;
 	}
-
 
 	// Agent methods
 	// ----------------------------------
@@ -148,25 +173,5 @@ public class Tile{
 			return deadTileArt; // if using different costing tiles
 		}
 	}
-	
-	// _-------------------------------- Needed for simulation ---
-
-	// Note the neighbors are not configured yet
-	public Tile deepCopy(){
-		// Cloning
-		Tile newTile = new Tile();
-		newTile.isAlive = this.isAlive;
-		newTile.neighbors = new TileList();
-
-		// Asign the Agent and the Tile to each other. 
-		if( currentAgent != null){
-			Agent clone = currentAgent.deepCopy();
-			newTile.currentAgent = clone;
-			clone.setTile(newTile);
-		}
-
-		return newTile;
-	}
-
 
 }
