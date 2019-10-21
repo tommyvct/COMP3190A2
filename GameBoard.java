@@ -333,7 +333,8 @@ public class GameBoard{
 		// apply the rules. 
 		if(map[row][col].isAlive() && lifeRule != null ){
 			map[row][col].setNext(lifeRule[neighborAlive]); // life rule
-		}else if( deathRule != null){
+		// patched. Only should apply to dead cells. 
+		}else if(!map[row][col].isAlive() && deathRule != null){
 			map[row][col].setNext(deathRule[neighborAlive]); // death rule
 		}
 	}

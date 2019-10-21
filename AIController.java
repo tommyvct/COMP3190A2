@@ -106,7 +106,8 @@ public class AIController{
 	// In case you want to check the state of the simulation
 	private boolean isGameOver(GameBoard currentBoard){
 
-		Player player = board.getPlayer(); // Might be null if no player found
+		// Patched: Should be currentBoard not board. 
+		Player player = currentBoard.getPlayer(); // Might be null if no player found
 		if( player == null){
 			System.out.println("No player found, ending game");
 			return true;
