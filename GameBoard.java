@@ -267,7 +267,10 @@ public class GameBoard{
 
 	// Set the neighbor of one tile
 	// Should skip themself and also any illigal Tiles (off the board)
-	private void setOneTileNeighbor(int currentRow, int currentCol){
+	private void setOneTileNeighbor( int currentRow, int currentCol ){
+		// Reset the tile to have new neighbors
+		map[currentRow][currentCol].resetNeighbors();
+		// iterate the neighbors and add them to this tile. 
 		for(int i = -1; i <=1 ; i++){
 			for(int j = -1; j <= 1; j++){
 				// currently examined neighbors

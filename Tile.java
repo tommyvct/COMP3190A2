@@ -50,7 +50,9 @@ public class Tile{
 
 		// Adding the Thing to the current Tile. 
 		if(other.currentThing != null){
-			this.currentThing = other.currentThing.deepCopy();
+			 Thing clonedThing = other.currentThing.deepCopy();
+			 this.currentThing = clonedThing;
+			 clonedThing.setTile(this);
 		}
 
 	}
@@ -123,6 +125,10 @@ public class Tile{
 	// Add a neighboring tile to the TileList
 	public void addNeighbor(Tile neighbor){
 		this.neighbors.add(neighbor);
+	}
+	// Reset neighbors to empty
+	public void resetNeighbors(){
+		neighbors = new TileList();
 	}
 	// number of neighbors (assigned)
 	public int countNeighbors(){
