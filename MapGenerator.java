@@ -64,20 +64,62 @@ public class MapGenerator{
 
 	}
 	
-
+	// TODO: Evaluate Heuristic
 	private int evaluateHeuristic(Tile[][] toEval)
 	{
-		int score = 100;
+		return -1;
+	}
 
-		for (int i = 0; i < toEval.length; i++) 
+	/**
+	 * Remove orphaned wall from given {@code Tile[][]}.
+	 * A orphaned wall means there is no alive neibour to it's right, left, 
+	 * above and below.
+	 * 
+	 * @param tiles {@code Tile[][]} to be cleaned 
+	 */
+	private void removeOrphanWall(Tile[][] tiles)
+	{
+		
+		for (int i = 0; i < tiles.length; i++) 
 		{
-			for (int j = 0; j < toEval[i].length; j++) 
+			for (int j = 0; j < tiles[i].length; j++) 
 			{
-				
+				boolean aliveAbove = false;
+				boolean aliveBelow = false;
+				boolean aliveLeft = false;
+				boolean aliveRight = false;
+
+				if (i - 1 > 0)
+				{
+					aliveAbove = tiles[i - 1][j].isAlive();
+				}
+
+				if (i + 1 < tiles.length)
+				{
+					aliveBelow = tiles[i + 1][j].isAlive();
+				}
+
+				if (j - 1 > 0)
+				{
+					aliveLeft = tiles[i][j - 1].isAlive();
+				}
+
+				if (j + 1 < tiles.length)
+				{
+					aliveRight = tiles[i][j + 1].isAlive();
+				}
+
+				if (aliveAbove || aliveBelow || aliveLeft || aliveRight)
+				{
+					continue;
+				}
+				else
+				{
+					tiles[i][j].setNext(false);
+					tiles[i][j].updateToNext();
+				}
 			}
 		}
-
-		return score;
 	}
 
 	// Clears all old agents as well
