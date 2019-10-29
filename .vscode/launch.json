@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Controller",
+            "request": "launch",
+            "mainClass": "Controller",
+            "projectName": "COMP3190A2_fec8c185"
+        }
+    ]
+}

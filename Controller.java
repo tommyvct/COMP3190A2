@@ -77,11 +77,20 @@ public class Controller{
     	// if alive, apply life rule based on the number of neighbors == index 
     	// (ie index is number of neighbors, returns whether it will be alive next step or not
     	// Life rule is applied to cells already alive (walls)
-		boolean[] refineLifeRules = {false,false,true,true,true,false,false,false,false}; // number of neighbors to come alive on
+		// boolean[] refineLifeRules = {false,false,true,true,true,false,false,false,false}; // number of neighbors to come alive on
 		// If dead, apply death rules based on number of neighbors (come alive if 3 neighbors only)
-		boolean[] refinedeathRules = {false,false,false,true,true,false,false,false,false}; // turn alive in these conditions
+		// boolean[] refinedeathRules = {false,false,false,true,true,false,false,false,false}; // turn alive in these conditions
 
-		board.nextStep(null, refinedeathRules);
+		// board.nextStep(refineLifeRules, refinedeathRules);
+
+
+		boolean[] lifeRule =  {false, false,  true,  true,  true,  true,  true,  true,  true};
+		boolean[] deathRule = {true,  true, false, false, false, false, false, false, false};
+		// lifeRule, deathRule
+		// currentBoard.nextStep(lifeRule, null);
+		board.nextStep(lifeRule, deathRule);
+
+
     }
 
     // Next step of the Game, Applys the players move, then the AIs move, then checks end conditions. 

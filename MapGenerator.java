@@ -32,16 +32,26 @@ public class MapGenerator{
 	// accepts and resets a current map
 	public void createMap( int rows, int cols, double density){
 		
-		Tile[][] map = new Tile[rows][cols];
-		// generate map
-		for(int r = 0; r < rows; r++){
-			for(int c = 0; c < cols; c++){
-				// create new random tile
-				Tile tempTile = new Tile();
-				tempTile.setRandom(density);
-				map[r][c] = tempTile;
+		Tile[][] map;
+		Tile[][] best = null;
+		int bestHeuristic = Integer.MIN_VALUE;
+
+		for (int i = 0; i < 10; i++)
+		{
+			map = new Tile[rows][cols];
+			// generate map
+			for(int r = 0; r < rows; r++){
+				for(int c = 0; c < cols; c++){
+					// create new random tile
+					Tile tempTile = new Tile();
+					tempTile.setRandom(density);
+					map[r][c] = tempTile;
+				}
 			}
+
 		}
+
+		currentBoard.initializeBoard(best);
 
 		// Determine if board is valid
 			// Should be within 5% +/- the given density
@@ -52,12 +62,26 @@ public class MapGenerator{
 
 		// [ ] Your work goes here....
 
-		currentBoard.initializeBoard(map);
+	}
+	
 
+	private int evaluateHeuristic(Tile[][] toEval)
+	{
+		int score = 100;
+
+		for (int i = 0; i < toEval.length; i++) 
+		{
+			for (int j = 0; j < toEval[i].length; j++) 
+			{
+				
+			}
+		}
+
+		return score;
 	}
 
 	// Clears all old agents as well
-	// Initializes the board with the Player, Goal Itenms and AIAgents
+	// Initializes the board with the Player, Goal Items and AIAgents
 	// This needs completing
 	public void addAgentsToMap(boolean addPlayer, int items, int aiAgents){
 
