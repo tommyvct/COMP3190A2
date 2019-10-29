@@ -10,6 +10,7 @@ public class MapGenerator{
 
 	// Current board the MapGenerator is working on
 	private GameBoard currentBoard;
+	private int score;
 
 	// Basically just a class for holding a tile on the board
 	// Not really needed at the moment exactly. 
@@ -36,9 +37,14 @@ public class MapGenerator{
 		Tile[][] best = null;
 		int bestHeuristic = Integer.MIN_VALUE;
 
+		boolean[] lifeRule = {false, false, true, true, true, true, true, true, true};
+		boolean[] deadRule = {true, true, false, false, false, false, false, false, false};
+		
+		// generate 10 maps
 		for (int i = 0; i < 10; i++)
 		{
 			map = new Tile[rows][cols];
+
 			// generate map
 			for(int r = 0; r < rows; r++){
 				for(int c = 0; c < cols; c++){
@@ -49,9 +55,20 @@ public class MapGenerator{
 				}
 			}
 
+			currentBoard.initializeBoard(map);
+			currentBoard.nextStep(lifeRule, deadRule);
+			removeOrphanWall(currentBoard.getMap());
+			
+			score = evaluateHeuristic(currentBoard.getMap());
+			if (score > bestHeuristic)
+			{
+				best = map;
+				bestHeuristic = score;
+			}
 		}
 
 		currentBoard.initializeBoard(best);
+
 
 		// Determine if board is valid
 			// Should be within 5% +/- the given density
